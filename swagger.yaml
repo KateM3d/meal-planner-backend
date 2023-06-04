@@ -1,0 +1,83 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "Meal API"
+  description: "API documentation for the Meal service"
+basePath: "/"
+schemes:
+  - "http"
+  - "https"
+paths:
+  /meals:
+    get:
+      summary: "Get all meals"
+      responses:
+        200:
+          description: "Successful response"
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Meal"
+    post:
+      summary: "Create a new meal"
+      parameters:
+        - name: meal
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/MealInput"
+      responses:
+        200:
+          description: "Successful response"
+          schema:
+            $ref: "#/definitions/Meal"
+  /meals/{id}:
+    delete:
+      summary: "Delete a meal"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: "Meal ID"
+      responses:
+        200:
+          description: "Successful response"
+    put:
+      summary: "Update a meal"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: "Meal ID"
+        - name: meal
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/MealInput"
+      responses:
+        200:
+          description: "Successful response"
+          schema:
+            $ref: "#/definitions/Meal"
+definitions:
+  Meal:
+    type: object
+    properties:
+      _id:
+        type: string
+        description: "Meal ID"
+      title:
+        type: string
+        description: "Meal title"
+    required:
+      - title
+  MealInput:
+    type: object
+    properties:
+      title:
+        type: string
+        description: "Meal title"
+    required:
+      - title
